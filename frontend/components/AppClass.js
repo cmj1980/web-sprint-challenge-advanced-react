@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-
+const URL = "http://localhost:9000/api/result"
 export default class AppClass extends React.Component {
 
   state = {
@@ -78,20 +78,36 @@ export default class AppClass extends React.Component {
     grid: [null, null, null, null, "B", null, null, null, null], 
     email: "",
     message: "",
+    error: "",
    })
   };
 
   handleOnChange = evt => {
     //console.log(this.handleOnChange)
-    const { value: e } = evt.target;
-          this.setState({
-            ...this.state,
-            email: e,
+    const { value } = evt.target;
+          this.setState({ ...this.state, email: value,
        });
   };
   
+   setResError = err => this.setState({ ...this.state, error: err.response.data.message }); 
+    
+  newPost = () => {
+    const [x, y] = this.getPositionOfXY()
+    axios.post(URL, {x: x, y: y, steps: this.state.steps, email: this.state.email,})
+    .then((res => {
+         console.log(res)
+         this.setState({ ...this.state, message: this.state.message.concat(res.data.message)})
+    }))
+    .catch(this.setResError)
+  } 
 
+  
+ handleOnSubmit = evt => {
+   evt.preventDefault(); 
+   this.newPost();
 
+ }
+  
   
 
   
@@ -110,7 +126,7 @@ export default class AppClass extends React.Component {
           {g.map((s, n) => (<div key={n} className={"square" + (s ? " active" : "")}>{s}</div>))}
         </div>
         <div className="info">
-          <h3 id="message" value={m}>{this.state.message}</h3>
+          <h3 id="message" value={m}>{m}</h3>
         </div>
         <div id="keypad">
           <button id="left" onClick={this.getMoves}>LEFT</button>
@@ -119,9 +135,9 @@ export default class AppClass extends React.Component {
           <button id="down" onClick={this.getMoves}>DOWN</button>
           <button id="reset" onClick={this.handleReset}>reset</button>
         </div>
-        <form>
+        <form onSubmit={this.handleOnSubmit}>
           <input id="email" type="email" value={e} placeholder="type email" onChange={this.handleOnChange}></input>
-          <input id="submit" type="submit" onSubmit={this.handleOnSubmit}></input>
+          <input id="submit" type="submit"></input>
         </form>
       </div>
     )
