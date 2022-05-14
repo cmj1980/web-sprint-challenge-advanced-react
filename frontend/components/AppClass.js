@@ -105,7 +105,7 @@ export default class AppClass extends React.Component {
  handleOnSubmit = evt => {
    evt.preventDefault(); 
    this.newPost();
-
+   this.handleReset();
  }
   
   
