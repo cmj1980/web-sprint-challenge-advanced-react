@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import axios from 'axios';
+
 
 export default class AppClass extends React.Component {
 
@@ -88,9 +89,10 @@ export default class AppClass extends React.Component {
             email: e,
        });
   };
+  
 
 
-
+  
 
   
 
@@ -108,7 +110,7 @@ export default class AppClass extends React.Component {
           {g.map((s, n) => (<div key={n} className={"square" + (s ? " active" : "")}>{s}</div>))}
         </div>
         <div className="info">
-          <h3 id="message" value={m}>{m}</h3>
+          <h3 id="message" value={m}>{this.state.message}</h3>
         </div>
         <div id="keypad">
           <button id="left" onClick={this.getMoves}>LEFT</button>
@@ -119,7 +121,7 @@ export default class AppClass extends React.Component {
         </div>
         <form>
           <input id="email" type="email" value={e} placeholder="type email" onChange={this.handleOnChange}></input>
-          <input id="submit" type="submit" onSubmit={this.onSubmit}></input>
+          <input id="submit" type="submit" onSubmit={this.handleOnSubmit}></input>
         </form>
       </div>
     )
