@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 
 export default class AppClass extends React.Component {
 
@@ -21,9 +22,6 @@ export default class AppClass extends React.Component {
     return `Coordinates (${c}, ${r})`
   };
 
-  reset = () => {
-    this.setState()
-  };
 // i = idx of   u = update 
   getUpdatedGrid = evt => {
     const i = this.state.grid.indexOf("B"),
@@ -70,33 +68,58 @@ export default class AppClass extends React.Component {
       });
   };
 
-   
+// onChange, onSubmit, & reset handlers
+
+ handleReset = () => {
+   //console.log(this.handleReset)
+  this.setState({
+    steps: 0,
+    grid: [null, null, null, null, "B", null, null, null, null], 
+    email: "",
+    message: "",
+   })
+  };
+
+  handleOnChange = evt => {
+    //console.log(this.handleOnChange)
+    const { value: e } = evt.target;
+          this.setState({
+            ...this.state,
+            email: e,
+       });
+  };
+
+
+
+
+  
+
 
   render() {
     const { steps: s, grid: g, message: m, email: e,} = this.state
     const { className } = this.props
-    return (
+    return ( 
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">{this.getMessageOfXY()}</h3>
           <h3 id="steps">{`You moved ${s} times`}</h3>
         </div>
         <div id="grid">
-          {g.map((s, n) => (<div key={n} className={"square" + (s ? " active" : "")}>{s}</div>))};
+          {g.map((s, n) => (<div key={n} className={"square" + (s ? " active" : "")}>{s}</div>))}
         </div>
         <div className="info">
-          <h3 id="message"></h3>
+          <h3 id="message" value={m}>{m}</h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
-          <button id="up">UP</button>
-          <button id="right">RIGHT</button>
-          <button id="down">DOWN</button>
-          <button id="reset">reset</button>
+          <button id="left" onClick={this.getMoves}>LEFT</button>
+          <button id="up" onClick={this.getMoves}>UP</button>
+          <button id="right" onClick={this.getMoves}>RIGHT</button>
+          <button id="down" onClick={this.getMoves}>DOWN</button>
+          <button id="reset" onClick={this.handleReset}>reset</button>
         </div>
         <form>
-          <input id="email" type="email" placeholder="type email"></input>
-          <input id="submit" type="submit"></input>
+          <input id="email" type="email" value={e} placeholder="type email" onChange={this.handleOnChange}></input>
+          <input id="submit" type="submit" onSubmit={this.onSubmit}></input>
         </form>
       </div>
     )
