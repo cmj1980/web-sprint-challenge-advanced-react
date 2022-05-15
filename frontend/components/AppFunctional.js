@@ -103,6 +103,7 @@ export default function AppFunctional(props) {
     }))
     .catch(err => {
       console.error(err)
+      setState({ ...state, message: state.message.concat(err.response.data.message)})
     })
   } 
 
