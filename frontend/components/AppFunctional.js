@@ -106,12 +106,12 @@ export default function AppFunctional(props) {
     })
   } 
 
- 
-
   const handleOnSubmit = evt => {
     evt.preventDefault(); 
     newPost();  
   }
+
+ 
   
 
   return (
@@ -136,7 +136,7 @@ export default function AppFunctional(props) {
         </div>
         <form onSubmit={handleOnSubmit}>
           <input id="email" type="email" value={state.email} placeholder="type email" onChange={handleOnChange}></input>
-          <input id="submit" type="submit"></input>
+          <input id="submit" type="submit" ></input>
         </form>
     </div>
   )

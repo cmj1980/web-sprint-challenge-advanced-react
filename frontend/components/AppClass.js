@@ -98,7 +98,7 @@ export default class AppClass extends React.Component {
        });
   };
   
-  setResError = err => this.setState({ ...this.state, error: err.response.data.message }); 
+  setResError = err => this.setState({ ...this.state, message: this.state.message.concat(err.response.data.message) }); 
     
   newPost = () => {
     const [x, y] = this.getPositionOfXY()
