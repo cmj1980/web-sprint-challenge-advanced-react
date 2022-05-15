@@ -9,6 +9,7 @@ export default class AppClass extends React.Component {
     grid: [null, null, null, null, "B", null, null, null, null], 
     email: "",
     message: "",
+    error: "",
   }
 // c = column  r = row
   getPositionOfXY = () => {
@@ -78,7 +79,7 @@ export default class AppClass extends React.Component {
     grid: [null, null, null, null, "B", null, null, null, null], 
     email: "",
     message: "",
-    error: "",
+
    })
   };
 
@@ -89,7 +90,7 @@ export default class AppClass extends React.Component {
        });
   };
   
-   setResError = err => this.setState({ ...this.state, error: err.response.data.message }); 
+  setResError = err => this.setState({ ...this.state, error: err.response.data.message }); 
     
   newPost = () => {
     const [x, y] = this.getPositionOfXY()
@@ -105,11 +106,9 @@ export default class AppClass extends React.Component {
  handleOnSubmit = evt => {
    evt.preventDefault(); 
    this.newPost();
-   this.handleReset();
+  
+   
  }
-  
-  
-
   
 
 
