@@ -67,7 +67,15 @@ export default function AppFunctional(props) {
       });
   };
 
-  const  handleReset = () => {
+  const stepsCount = () => {
+    if (state.steps === 1) {
+    return (`You moved ${state.steps} time`)
+    }else{
+      return(`You moved ${state.steps} times`)
+    }
+  }
+
+  const handleReset = () => {
     //console.log(this.handleReset)
      setState({
      steps: 0,
@@ -86,7 +94,7 @@ export default function AppFunctional(props) {
 
   
   
-  const  newPost = () => {
+  const newPost = () => {
     const [x, y] = getPositionOfXY()
     axios.post(URL, {x: x, y: y, steps: state.steps, email: state.email,})
     .then((res => {
@@ -98,11 +106,11 @@ export default function AppFunctional(props) {
     })
   } 
 
-  const  handleOnSubmit = evt => {
+ 
+
+  const handleOnSubmit = evt => {
     evt.preventDefault(); 
-    newPost();
-    
-    
+    newPost();  
   }
   
 
@@ -111,7 +119,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
           <h3 id="coordinates">{getMessageOfXY()}</h3>
-          <h3 id="steps">{`You moved ${state.steps} times`}</h3>
+          <h3 id="steps">{stepsCount(state.steps)}</h3>
         </div>
         <div id="grid">
           {state.grid.map((s, n) => (<div key={n} className={"square" + (s ? " active" : "")}>{s}</div>))}

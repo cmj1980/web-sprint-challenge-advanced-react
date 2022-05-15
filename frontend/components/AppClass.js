@@ -70,6 +70,14 @@ export default class AppClass extends React.Component {
       });
   };
 
+  stepsCount = () => {
+    if (this.state.steps === 1) {
+      return (`You moved ${this.state.steps} time`)
+      }else{
+        return(`You moved ${this.state.steps} times`)
+      }
+  }
+
 // onChange, onSubmit, & reset handlers
 
  handleReset = () => {
@@ -106,8 +114,9 @@ export default class AppClass extends React.Component {
  handleOnSubmit = evt => {
    evt.preventDefault(); 
    this.newPost();
-  
-   
+   this.setState({
+     email: "",
+   })
  }
   
 
@@ -119,7 +128,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">{this.getMessageOfXY()}</h3>
-          <h3 id="steps">{`You moved ${s} times`}</h3>
+          <h3 id="steps">{this.stepsCount(s)}</h3>
         </div>
         <div id="grid">
           {g.map((s, n) => (<div key={n} className={"square" + (s ? " active" : "")}>{s}</div>))}
