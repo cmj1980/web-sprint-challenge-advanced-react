@@ -97,15 +97,21 @@ export default function AppFunctional(props) {
   const newPost = () => {
     const [x, y] = getPositionOfXY()
     axios.post(URL, {x: x, y: y, steps: state.steps, email: state.email,})
-    .then((res => {
-         console.log(res)
-         setState({ ...state, message: state.message.concat(res.data.message)})
-    }))
-    .catch(err => {
-      console.error(err)
-      setState({ ...state, message: state.message.concat(err.response.data.message)})
+    .then(res =>{
+      setState({
+        ...state,
+        message: res.data.message,
+        email: "" 
+      })
     })
-  } 
+    .catch(err => {
+      setState({
+        ...state,
+        message: err.response.data.message,
+        email: ""
+      })
+    })
+  }
 
   const handleOnSubmit = evt => {
     evt.preventDefault(); 
