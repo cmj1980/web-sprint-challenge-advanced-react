@@ -87,7 +87,6 @@ export default class AppClass extends React.Component {
     grid: [null, null, null, null, "B", null, null, null, null], 
     email: "",
     message: "",
-
    })
   };
 
@@ -99,7 +98,6 @@ export default class AppClass extends React.Component {
   };
   
   
-    
   newPost = () => {
     const [x, y] = this.getPositionOfXY()
     axios.post(URL, {x: x, y: y, steps: this.state.steps, email: this.state.email,})
@@ -114,8 +112,7 @@ export default class AppClass extends React.Component {
       })
     })
   } 
-
-  
+                    
  handleOnSubmit = evt => {
    evt.preventDefault(); 
    this.newPost();
@@ -124,8 +121,6 @@ export default class AppClass extends React.Component {
    })
  }
   
-
-
   render() {
     const { steps: s, grid: g, message: m, email: e,} = this.state
     const { className } = this.props
