@@ -98,16 +98,21 @@ export default class AppClass extends React.Component {
        });
   };
   
-  setResError = err => this.setState({ ...this.state, message: this.state.message.concat(err.response.data.message) }); 
+  
     
   newPost = () => {
     const [x, y] = this.getPositionOfXY()
     axios.post(URL, {x: x, y: y, steps: this.state.steps, email: this.state.email,})
-    .then((res => {
-         console.log(res)
-         this.setState({ ...this.state, message: this.state.message.concat(res.data.message)})
-    }))
-    .catch(this.setResError)
+    .then(res => {
+      this.setState({
+        message: res.data.message
+      })
+    })
+    .catch(err =>{
+      this.setState({
+        message: err.response.data.message
+      })
+    })
   } 
 
   
